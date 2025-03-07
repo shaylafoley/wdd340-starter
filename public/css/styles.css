@@ -1,4 +1,9 @@
-/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-image: url('../images/site/checkerboard.jpg');
   background-size: cover;
@@ -7,22 +12,25 @@ body {
   background-attachment: fixed;
   display: flex;
   justify-content: center;
+  
 }
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* Create a centered container box */
 #wrapper {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  /*max-width: 1200px;*/
   background: rgba(255, 255, 255, 0.9); /* White box with slight transparency */
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px; /* Optional rounded corners */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow for a lifted effect */
+  margin: 40px;
 }
 
 /* Header Styling */
@@ -38,9 +46,12 @@ header {
 
 /* CSE Motors (Logo) */
 header h1 {
-  font-size: 2rem; /* Makes it bigger */
+  /*font-size: 2rem; /* Makes it bigger */
   font-weight: bold;
   margin: 0;
+}
+.siteName a{
+  font-size: xx-large;
 }
 
 /* My Account Link */
@@ -97,23 +108,22 @@ nav ul li a:hover {
   color: #ffcc00; /* Changes text to yellow on hover */
 }
 
-/* Container for layout */
-/* Container Flexbox */
-/* Container Flexbox */
 .container {
   display: flex;
-  justify-content: flex-start; /* Aligns the sections to the left */
+  flex-wrap: wrap;
+  justify-content: center; /* Aligns the sections to the left */
   align-items: flex-start; /* Aligns the items to the top */
   width: 100%;
   gap: 20px; /* Space between sections */
-  margin-top: 20px;
+  max-width: 1200px;
+  margin-top: 0 auto;
 }
 
 /* Hero section with the car image */
 #hero-car {
   flex: 1; /* Takes up available space */
   display: flex;
-  justify-content: flex-end; /* Pushes the text box to the left */
+  justify-content: center; /* Pushes the text box to the left */
   align-items: center; /* Centers the content vertically */
   background-image: url("../images/vehicles/delorean.jpg");
   background-repeat: no-repeat;
@@ -131,12 +141,12 @@ nav ul li a:hover {
   color: white; /* White text */
   padding: 20px;
   border-radius: 10px; /* Smooth rounded corners */
-  width: 200px; /* Fixed width for the text box */
-  max-width: 80%;
+  width: 90%; /* Fixed width for the text box */
+  max-width: 250px;
   position: absolute; /* Position it absolutely relative to the parent container */
-  top: 20%; /* Align vertically at 20% from the top of the container */
-  left: 0; /* Align to the left side of the container */
-  transform: none; /* Remove the vertical centering transform */
+  /*top: 20%; /* Align vertically at 20% from the top of the container */
+  left: 5%; /* Align to the left side of the container */
+  /*transform: none; /* Remove the vertical centering transform */
 }
 
 
@@ -239,17 +249,18 @@ nav ul li a:hover {
   }
 
   #hero-car {
-    height: 300px; /* Adjust the height of the hero section on smaller screens */
-    /*background-size: cover; /* Ensures the background image covers the area */
-    background-position: center; /* Keeps the image centered */
+    height: auto; /* Adjust the height of the hero section on smaller screens */
+    min-height: 300px;
+    background-size: contain; /* Ensures the background image covers the area */
+    background-position: center center; /* Keeps the image centered */
     width: 100%; /* Ensures full width for the hero section */
   }
 
   #upgrades, #reviews {
-    width: 100%; /* Full width on smaller screens */
+    width: 90%; /* Full width on smaller screens */
   }
 
-  .link-container {
+  .bottom-container {
     grid-template-columns: 1fr; /* Stacks the upgrade items vertically */
   }
 }
