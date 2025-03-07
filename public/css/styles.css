@@ -116,7 +116,7 @@ nav ul li a:hover {
   width: 100%;
   gap: 20px; /* Space between sections */
   max-width: 1200px;
-  margin-top: 0 auto;
+  margin-top: auto;
 }
 
 /* Hero section with the car image */
@@ -212,7 +212,7 @@ nav ul li a:hover {
 .upgrade-item a {
   display: block;
   text-decoration: none;
-  color: black;
+  color: white;
   font-size: 16px;
 }
 
