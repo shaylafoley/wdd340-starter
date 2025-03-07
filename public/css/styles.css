@@ -1,6 +1,256 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+/* General Styles */
+body {
+  background-image: url('../images/site/checkerboard.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  display: flex;
+  justify-content: center;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Create a centered container box */
+#wrapper {
+  width: 90%;
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.9); /* White box with slight transparency */
+  padding: 20px;
+  border-radius: 10px; /* Optional rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Adds shadow for a lifted effect */
+}
+
+/* Header Styling */
+header {
+  display: flex;
+  justify-content: space-between; /* Moves elements to opposite sides */
+  align-items: center; /* Centers vertically */
+  background: #004080; /* Dark blue background */
+  color: white;
+  padding: 15px 20px;
+  border-radius: 5px;
+}
+
+/* CSE Motors (Logo) */
+header h1 {
+  font-size: 2rem; /* Makes it bigger */
+  font-weight: bold;
+  margin: 0;
+}
+
+/* My Account Link */
+header a {
+  font-size: 1rem; /* Makes it smaller */
+  text-decoration: none;
+  color: white;
+  font-weight: normal;
+}
+
+/* Ensure the header, navigation, and footer look good */
+header, nav, footer {
+  background: #004080; /* Dark blue background */
+  color: white;
+  padding: 10px;
+  text-align: center;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+/* Navigation bar styling */
+nav {
+  background: black; /* Black background */
+  padding: 15px 0; /* Adds space above and below */
+}
+
+/* Navigation list styling */
+nav ul {
+  display: flex; /* Makes the list horizontal */
+  justify-content: center; /* Centers items across the navbar */
+  list-style: none; /* Removes bullet points */
+  padding: 0;
+  margin: 0;
+}
+
+/* Navigation links styling */
+nav ul li {
+  margin: 0 20px; /* Adds spacing between links */
+}
+
+/* Link styling */
+nav ul li a {
+  text-decoration: none; /* Removes underlines */
+  color: white; /* White text */
+  font-size: 1.2rem; /* Makes text slightly bigger */
+  font-weight: bold;
+  text-transform: uppercase; /* Makes text all caps */
+  padding: 10px 15px; /* Adds clickable space around links */
+  transition: 0.3s ease-in-out; /* Smooth hover effect */
+}
+
+/* Hover effect */
+nav ul li a:hover {
+  color: #ffcc00; /* Changes text to yellow on hover */
+}
+
+/* Container for layout */
+/* Container Flexbox */
+/* Container Flexbox */
+.container {
+  display: flex;
+  justify-content: flex-start; /* Aligns the sections to the left */
+  align-items: flex-start; /* Aligns the items to the top */
+  width: 100%;
+  gap: 20px; /* Space between sections */
+  margin-top: 20px;
+}
+
+/* Hero section with the car image */
+#hero-car {
+  flex: 1; /* Takes up available space */
+  display: flex;
+  justify-content: flex-end; /* Pushes the text box to the left */
+  align-items: center; /* Centers the content vertically */
+  background-image: url("../images/vehicles/delorean.jpg");
+  background-repeat: no-repeat;
+  /*background-size: cover; /* Ensures the car image covers the area */
+  background-position: center; /* Centers the image */
+  height: 500px; /* Set height for the hero section */
+  width: 100%; /* Ensures it takes full width of its container */
+  margin-right: 20px; /* Optional: Adds some spacing to the right if needed */
+  position: relative; /* Make it the parent for absolute positioning of content */
+}
+
+/* Text box styling */
+#hero-car ul {
+  background: rgba(0, 0, 0, .3); /* Semi-transparent black background */
+  color: white; /* White text */
+  padding: 20px;
+  border-radius: 10px; /* Smooth rounded corners */
+  width: 200px; /* Fixed width for the text box */
+  max-width: 80%;
+  position: absolute; /* Position it absolutely relative to the parent container */
+  top: 20%; /* Align vertically at 20% from the top of the container */
+  left: 0; /* Align to the left side of the container */
+  transform: none; /* Remove the vertical centering transform */
+}
+
+
+/* Heading styles */
+#hero-car h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+#hero-car h3 {
+  font-size: 1.2rem;
+  margin: 5px 0;
+}
+
+/* Button styling */
+#hero-car button {
+  display: block;
+  background: #ffcc00; /* Bright yellow button */
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 10px;
+  transition: 0.3s ease-in-out;
+}
+
+/* Button hover effect */
+#hero-car button:hover {
+  background: #e6b800; /* Slightly darker yellow */
+}
+
+/* Upgrades and Reviews Section */
+#upgrades {
+  text-align: center;
+}
+
+.link-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
+}
+
+.upgrade-item {
+  text-align: center;
+  border: 1px solid #004080;
+  background-color:  #004080;
+  padding: 10px;
+}
+
+.upgrade-item img {
+  width: 100px; /* Adjust the size of the images */
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.upgrade-item a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  font-size: 16px;
+}
+
+/* Reviews Section */
+#reviews {
+  flex: 1; /* Allows the reviews section to take available space */
+  background-color: #f1f1f1; /* Light background for contrast */
+  padding: 20px;
+  border-radius: 5px; /* Smooth rounded corners */
+}
+
+.review-container ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-container h4 {
+  margin: 5px;
+  margin-top: 20px;
+}
+.bottom-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two columns */
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stacks the sections vertically */
+    align-items: center; /* Centers the sections horizontally */
+  }
+
+  #hero-car {
+    height: 300px; /* Adjust the height of the hero section on smaller screens */
+    /*background-size: cover; /* Ensures the background image covers the area */
+    background-position: center; /* Keeps the image centered */
+    width: 100%; /* Ensures full width for the hero section */
+  }
+
+  #upgrades, #reviews {
+    width: 100%; /* Full width on smaller screens */
+  }
+
+  .link-container {
+    grid-template-columns: 1fr; /* Stacks the upgrade items vertically */
+  }
+}
+
