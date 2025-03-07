@@ -75,7 +75,9 @@ header, nav, footer {
 /* Navigation bar styling */
 nav {
   background: black; /* Black background */
-  padding: 15px 0; /* Adds space above and below */
+  padding: 15px 15px; /* Adds space above and below */
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Navigation list styling */
@@ -101,6 +103,8 @@ nav ul li a {
   text-transform: uppercase; /* Makes text all caps */
   padding: 10px 15px; /* Adds clickable space around links */
   transition: 0.3s ease-in-out; /* Smooth hover effect */
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* Hover effect */
@@ -265,3 +269,25 @@ nav ul li a:hover {
   }
 }
 
+@media screen and (max-width: 768px) {
+  nav ul {
+    gap: 5px; /* Reduce space between items */
+  }
+
+  nav ul li {
+    margin: 0 5px; /* Reduce the horizontal margin */
+  }
+
+  nav ul li a {
+    font-size: 1rem; /* Shrink font size */
+    padding: 5px 8px; /* Reduce padding */
+  }
+}
+
+/* For very small screens like iPhone SE */
+@media screen and (max-width: 500px) {
+  nav ul li a {
+    font-size: 0.9rem; /* Make text smaller */
+    padding: 4px 6px; /* Reduce padding more */
+  }
+}
