@@ -12,6 +12,7 @@ const app = express()
 const static = require("./routes/static")
 const path = require('path')
 const baseController = require("./controllers/baseController")
+const inventoryRoute = require("./routes/inventoryRoute")
 /* ***********************
  * View Engines and Templates
  *************************/
@@ -25,10 +26,14 @@ app.use(express.static(path.join(__dirname, 'public')));
  *************************/
 app.use(static)
 //Index route
+// Inventory routes
+app.use("/inv", inventoryRoute)
 app.get('/', baseController.buildHome)
 /*app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })*/
+
+
 /* ***********************
  * Local Server Information
  * Values from .env (environment) file
