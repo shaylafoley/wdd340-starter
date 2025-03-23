@@ -19,10 +19,25 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+
+// async function getVehicleDetail (req, res) {
+//   const invId = req.params.invId; // Getting the invId from the URL parameter
+//   try {
+//     const data = await invModel.getVehicleById(invId); // Make sure this uses the correct model method
+//     if (data.rowCount === 0) {
+//       return res.status(404).send("Vehicle not found");
+//     }
+//     const vehicleDetail = Util.buildVehicleDetail(data.rows[0]); // Assuming you have a method to build the detail
+//     res.render('vehicleDetail', { vehicleDetail }); // Rendering the vehicle detail view
+//   } catch (error) {
+//     console.error("Error fetching vehicle details:", error);
+//     res.status(500).send("An error occurred while retrieving vehicle details.");
+//   }
+// };
+
 invCont.getVehicleDetail = async function (req, res, next) {
   const invId = req.params.invId // Get ID from URL
-  const nav = await utilities.getNav() // ✅ Still needed for navigation
-
+  
   try {
     const data = await invModel.getVehicleById(invId)
 
@@ -33,14 +48,15 @@ invCont.getVehicleDetail = async function (req, res, next) {
     }
 
     const vehicle = data.rows[0]
-    const vehicleDetail = utilities.buildVehicleDetail(vehicle)
+    const vehicleDetail = utilities.buildVehicleDetail(vehicle);
+    const nav = await utilities.getNav() 
 
     res.render("vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, nav, vehicleDetail })
   } catch (error) {
     console.error("Error fetching vehicle details:", error)
     res.status(500).render("error", { title: "Error", message: "Internal Server Error", nav })
   }
-}
+};
 
 
 module.exports = invCont
