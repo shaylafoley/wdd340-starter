@@ -19,4 +19,29 @@ invCont.buildByClassificationId = async function (req, res, next) {
   })
 }
 
+invCont.getVehicleDetail = async function (req, res, next) {
+  const invId = req.params.invId // Get ID from URL
+  const nav = await utilities.getNav() // ✅ Still needed for navigation
+
+  try {
+    const data = await invModel.getVehicleById(invId)
+
+    if (!data || data.rowCount === 0) {
+      // ✅ Correct error handling
+      res.status(404).render("error", { title: "Error", message: "Vehicle not found", nav })
+      return
+    }
+
+    const vehicle = data.rows[0]
+    const vehicleDetail = utilities.buildVehicleDetail(vehicle)
+
+    res.render("vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, nav, vehicleDetail })
+  } catch (error) {
+    console.error("Error fetching vehicle details:", error)
+    res.status(500).render("error", { title: "Error", message: "Internal Server Error", nav })
+  }
+}
+
+
 module.exports = invCont
+

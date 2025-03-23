@@ -25,6 +25,19 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
+/* ***************************
+ *  Get all inventory items by inv_id
+ * ************************** */
 
-module.exports = {getClassifications, getInventoryByClassificationId};
+async function getVehicleById(invId) {
+  try {
+    const sql = `SELECT * FROM public.inventory WHERE inv_id = $1`
+    const data = await pool.query(sql, [invId])  // Use parameterized query to prevent SQL injection
+    return data
+  } catch (error) {
+    console.error("Error in getVehicleById:", error)
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getVehicleById};
 
