@@ -16,6 +16,7 @@ const path = require('path')
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
+const accountRoute = require("./routes/accountRoute")
 
 /* ***********************
  * Middleware
@@ -30,6 +31,13 @@ app.use(session({
   saveUninitialized: true,
   name: 'sessionId',
 }))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 
 /* ***********************
@@ -48,7 +56,8 @@ app.use(static)
 app.get("/", utilities.handleErrors(baseController.buildHome)) 
 // Inventory routes
 app.use("/inv", inventoryRoute)
-
+// Account routes
+app.use("/account", accountRoute)
 /*app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })*/
