@@ -17,7 +17,7 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const accountRoute = require("./routes/accountRoute")
-
+const registrationRoute = require("./routes/registrationRoute")
 /* ***********************
  * Middleware
  * ************************/
@@ -58,6 +58,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome))
 app.use("/inv", inventoryRoute)
 // Account routes
 app.use("/account", accountRoute)
+app.use("/account", registrationRoute)
 /*app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })*/
