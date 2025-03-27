@@ -326,6 +326,42 @@ nav ul li a:hover {
 .register-form button:hover {
   background: #0056b3;
 }
+
+/* Input fields */
+input {
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style for invalid input */
+input:required:invalid, input:focus:invalid {
+  border: 2px solid red;
+  background-image: url('/images/invalid.png');
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
+
+/* Style for valid input */
+input:required:valid {
+  border: 2px solid green;
+  background-image: url('/images/valid.png');
+  background-position: right top;
+  background-repeat: no-repeat;
+  background-size: 20px;
+}
+
+/* Password requirements styling */
+.password-requirements {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .container {
