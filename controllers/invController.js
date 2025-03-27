@@ -16,6 +16,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     title: className + " vehicles",
     nav,
     grid,
+    errors: null,
   })
 }
 
@@ -35,7 +36,10 @@ invCont.getVehicleDetail = async function (req, res, next) {
     const vehicleDetail = utilities.buildVehicleDetail(vehicle);
     const nav = await utilities.getNav() 
 
-    res.render("./inventory/vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, nav, vehicleDetail })
+    res.render("./inventory/vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, 
+      nav, 
+      vehicleDetail,
+      errors: null, })
   } catch (error) {
     console.error("Error fetching vehicle details:", error)
     res.status(500).render("error", { title: "Error", message: "Internal Server Error", nav })
