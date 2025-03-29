@@ -19,6 +19,8 @@ const utilities = require("./utilities")
 const accountRoute = require("./routes/accountRoute")
 const registrationRoute = require("./routes/registrationRoute")
 const bodyParser = require("body-parser")
+const flash = require("connect-flash")
+
 /* ***********************
  * Middleware
  * ************************/
@@ -43,6 +45,19 @@ app.use(function(req, res, next){
   next()
 })
 
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.message = req.flash("info");
+  res.locals.errors = req.flash("errors");
+  next();
+});
 
 /* ***********************
  * View Engines and Templates

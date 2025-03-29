@@ -79,33 +79,24 @@ Util.buildVehicleDetail = function(vehicle) {
   `
 }
 
-
-// Util.buildLogin = function (title, req) {
-//   //const nav = await Util.getNav() // Get the navigation bar
-  
-//   return `
-//     <header>
-//       ${nav}
-//     </header>
-//     <main class="loginPage">
-//       <h1>${title}</h1>
-
-//       ${req.flash("notice") ? `<div class="flash-message">${req.flash("notice")}</div>` : ""}
-      
-//       <form action="/account/login" method="POST" class="login-form">
-//         <label for="email">Email Address:</label>
-//         <input type="email" id="email" name="email" required>
-
-//         <label for="password">Password:</label>
-//         <input type="password" id="password" name="password" required>
-
-//         <button type="submit">Login</button>
-//       </form>
-
-//       <p>Don't have an account? <a href="/account/register">Register here</a></p>
-//     </main>
-//   `
-// }
+Util.buildClassificationList = async function (classification_id = null) {
+  let data = await invModel.getClassifications()
+  let classificationList =
+    '<select name="classification_id" id="classificationList" required>'
+  classificationList += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    classificationList += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      classificationList += " selected "
+    }
+    classificationList += ">" + row.classification_name + "</option>"
+  })
+  classificationList += "</select>"
+  return classificationList
+}
 
 module.exports = Util
 
