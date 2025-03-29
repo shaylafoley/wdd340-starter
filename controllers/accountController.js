@@ -1,5 +1,6 @@
 utilities = require("../utilities")
 const accountModel = require("../models/account-register-model")
+const bcrypt = require("bcryptjs")
 /* ****************************************
 *  Deliver login view
 * *************************************** */
