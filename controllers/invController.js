@@ -48,16 +48,19 @@ invCont.getVehicleDetail = async function (req, res, next) {
 };
 
 invCont.renderManagementView = async function(req, res ) {
-  
+  //const nav = await utilities.getNav() 
   res.render("inventory/management", {
     title: "Inventory Management",
+    nav,
     message: req.flash("info")
   })
 }
 
 invCont.renderClassificationView = async function(req, res) {
+  const nav = await utilities.getNav()  
   res.render("inventory/add-classification", {
     title: "Add Classification",
+    nav,
     message: req.flash("info"), 
     errors: req.flash("errors")
   })
@@ -90,9 +93,11 @@ invCont.addClassification = async function (req, res) {  // <-- Fix: Assign to i
 // Render Add Inventory View
 invCont.renderAddInventoryView = async function (req, res) {
   const classificationList = await utilities.buildClassificationList(); // <-- Fix: Correct function
+  const nav = await utilities.getNav();
   res.render("inventory/add-inventory", {
     title: "Add Inventory",
     classificationList,
+    nav,
     message: req.flash("info"),
     errors: req.flash("errors"),
   });
