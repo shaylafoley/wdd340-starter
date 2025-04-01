@@ -1,38 +1,15 @@
 <main>
-    <h1>Inventory Management</h1>
-  
+  <h1>Inventory Management</h1>
     <% if (typeof message !== "undefined") { %>
       <p class="flash-message"><%= message %></p>
     <% } %>
   
-    <nav>
-        <ul id="nav-list">
-          <% classifications.forEach(classification => { %>
-            <li><a href="/inv/<%= classification.id %>"><%= classification.name %></a></li>
-          <% }); %>
-        </ul>
-      </nav>
-      
-      <script>
-        async function updateNavigation() {
-          const response = await fetch("/inv/classifications");
-          const classifications = await response.json();
-          
-          const navList = document.getElementById("nav-list");
-          navList.innerHTML = "";
-          
-          classifications.forEach(classification => {
-            const li = document.createElement("li");
-            const a = document.createElement("a");
-            a.href = `/inv/${classification.id}`;
-            a.textContent = classification.name;
-            li.appendChild(a);
-            navList.appendChild(li);
-          });
-        }
-      
-        updateNavigation();
-      </script>
-      
-  </main>
+  <nav>
+      <ul id="nav-list">
+        <li><a href="/inv/add-classification">Add Classification</a></li>
+        <li><a href="/inv/add-inventory">Add Inventory</a></li>
+      </ul>
+  </nav>
+  
+</main>
   

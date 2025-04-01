@@ -47,8 +47,8 @@ invCont.getVehicleDetail = async function (req, res, next) {
   }
 };
 
-invCont.renderManagementView = async function(req, res ) {
-  //const nav = await utilities.getNav() 
+invCont.renderManagementView = async function(req, res) {
+const nav = await utilities.getNav() 
   res.render("inventory/management", {
     title: "Inventory Management",
     nav,

@@ -1,4 +1,3 @@
-/* Adding the Content Heading */
 
 <% if (title) { %>
     <h1><%= title %></h1>
@@ -6,14 +5,5 @@
       res.redirect('/')
     } %>
 
-/*A message block
-An EJS code block, using a comment mark (#), disables this 
-code. In the future, when messages have been implemented, 
-you'll replace the comment with the unescaped mark (—), 
-while will allow any messages that have been set to be 
-displayed*/
-<%# messages() %>
-
-/* Inventory displayed */
 <%- vehicleDetail %>
 
