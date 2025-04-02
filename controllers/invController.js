@@ -1,6 +1,7 @@
 const { header } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const bcrypt = require("bcryptjs")
 
 const invCont = {}
 
@@ -49,46 +50,45 @@ invCont.getVehicleDetail = async function (req, res, next) {
 
 invCont.renderManagementView = async function(req, res) {
 const nav = await utilities.getNav() 
+const message = req.flash("notice");
   res.render("inventory/management", {
     title: "Inventory Management",
     nav,
-    message: req.flash("info")
+    message: message.length > 0 ? message[0] : null
   })
 }
 
 invCont.renderClassificationView = async function(req, res) {
-  const nav = await utilities.getNav()  
+  const nav = await utilities.getNav()
+  
   res.render("inventory/add-classification", {
     title: "Add Classification",
     nav,
-    message: req.flash("info"), 
-    errors: req.flash("errors")
+    message: req.flash("notice"), 
+    errors: null
   })
 }
 //Add classification
 
-invCont.addClassification = async function (req, res) {  // <-- Fix: Assign to invCont
+invCont.addClassification = async function (req, res) {
+  let nav = await utilities.getNav();
   const { classification_name } = req.body;
-  const pattern = /^[a-zA-Z0-9]+$/;
-  if (!pattern.test(classification_name)) {
-    req.flash("errors", ["Classification name cannot contain spaces or special characters."]);
-    return res.redirect("/inv/add-classification");
-  }
-  try {
-    const success = await invModel.insertClassification(classification_name);
-    if (success) {
-      req.flash("info", "Classification added successfully!");
-      return res.redirect("/inv/");
-    } else {
-      req.flash("errors", ["Error adding classification. Please try again."]);
-      return res.redirect("/inv/add-classification");
-    }
-  } catch (error) {
-    console.error("Database error:", error);
-    req.flash("errors", ["Server error. Please try again later."]);
-    return res.redirect("/inv/add-classification");
+  
+  const regResult = await invModel.insertClassification(classification_name);
+
+  if (regResult) {
+    req.flash("notice", `Congratulations, you successfully added the classification: ${classification_name}.`);
+    res.redirect("/inv"); // Redirect to the management page
+  } else {
+    req.flash("notice", "Sorry, the classification creation failed.");
+    res.status(501).render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+    });
   }
 };
+
 
 // Render Add Inventory View
 invCont.renderAddInventoryView = async function (req, res) {
@@ -105,6 +105,7 @@ invCont.renderAddInventoryView = async function (req, res) {
 
 // Add Inventory Handler
 invCont.addInventory = async function (req, res) {  // <-- Fix: Assign to invCont
+  
   const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body;
   if (!classification_id || !inv_make || !inv_model || !inv_description || !inv_price || !inv_year || !inv_miles || !inv_color) {
     req.flash("errors", ["All fields are required."]);
@@ -114,15 +115,15 @@ invCont.addInventory = async function (req, res) {  // <-- Fix: Assign to invCon
     const success = await invModel.insertInventory({ classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color });
     if (success) {
       req.flash("info", "Vehicle added successfully!");
-      return res.redirect("/inv/");
+      return res.redirect("inventory/management");
     } else {
-      req.flash("errors", ["Error adding vehicle. Please try again."]);
-      return res.redirect("/inv/add-inventory");
+      req.flash("errors", ["Error adding classification. Please try again."]);
+      return res.redirect("inventory/management");
     }
   } catch (error) {
     console.error("Database error:", error);
     req.flash("errors", ["Server error. Please try again later."]);
-    return res.redirect("/inv/add-inventory");
+    return res.redirect("inventory/management");
   }
 };
   
