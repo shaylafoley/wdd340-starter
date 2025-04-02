@@ -105,28 +105,33 @@ invCont.renderAddInventoryView = async function (req, res) {
 
 // Add Inventory Handler
 invCont.addInventory = async function (req, res) {  // <-- Fix: Assign to invCont
-  
+  let nav = await utilities.getNav();
+  //let classificationList = await Util.buildClassificationList();
   const { classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color } = req.body;
-  if (!classification_id || !inv_make || !inv_model || !inv_description || !inv_price || !inv_year || !inv_miles || !inv_color) {
-    req.flash("errors", ["All fields are required."]);
-    return res.redirect("/inv/add-inventory");
-  }
-  try {
-    const success = await invModel.insertInventory({ classification_id, inv_make, inv_model, inv_description, inv_image, inv_thumbnail, inv_price, inv_year, inv_miles, inv_color });
-    if (success) {
-      req.flash("info", "Vehicle added successfully!");
-      return res.redirect("inventory/management");
-    } else {
-      req.flash("errors", ["Error adding classification. Please try again."]);
-      return res.redirect("inventory/management");
-    }
-  } catch (error) {
-    console.error("Database error:", error);
-    req.flash("errors", ["Server error. Please try again later."]);
-    return res.redirect("inventory/management");
+  const regResult = await invModel.insertInventory (
+    classification_id, 
+    inv_make, 
+    inv_model, 
+    inv_description, 
+    inv_image, 
+    inv_thumbnail, 
+    inv_price, 
+    inv_year, 
+    inv_miles, 
+    inv_color
+  );
+  if (regResult) {
+    req.flash("notice", `Congratulations, you successfully added the inventory: ${inv_make} ${inv_model} ${inv_year}`);
+    res.redirect("/inv"); // Redirect to the management page
+  } else {
+    req.flash("notice", "Sorry, the classification creation failed.");
+    res.status(501).render("inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      errors: null,
+    });
   }
 };
-  
 
 module.exports = invCont
 
