@@ -99,7 +99,7 @@ invCont.renderAddInventoryView = async function (req, res) {
     classificationList,
     nav,
     message: req.flash("info"),
-    errors: req.flash("errors"),
+    errors: null,
   });
 };
 
