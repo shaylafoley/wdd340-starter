@@ -17,10 +17,10 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const accountRoute = require("./routes/accountRoute")
-const registrationRoute = require("./routes/registrationRoute")
+//const registrationRoute = require("./routes/registrationRoute")
 const bodyParser = require("body-parser")
 const flash = require("connect-flash")
-
+const cookieParser = require("cookie-parser")
 /* ***********************
  * Middleware
  * ************************/
@@ -37,6 +37,10 @@ app.use(session({
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cookieParser())
+app.use(express.urlencoded({ extended: true })); // Parses form data
+app.use(express.json()); // Parses JSON data
+
 
 // Express Messages Middleware
 app.use(require('connect-flash')())
@@ -78,7 +82,7 @@ app.use("/inv", inventoryRoute)
 app.use("/", inventoryRoute)
 // Account routes
 app.use("/account", accountRoute)
-app.use("/account", registrationRoute)
+//app.use("/account", registrationRoute)
 /*app.get("/", function(req, res){
   res.render("index", {title: "Home"})
 })*/
