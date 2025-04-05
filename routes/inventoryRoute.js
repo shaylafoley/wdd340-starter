@@ -22,5 +22,6 @@ router.get("/classifications", async (req, res) => {
   });
   router.get("/add-inventory", invController.renderAddInventoryView);
   router.post("/add-inventory", invController.addInventory);
-  
+  router.get("/getInventory/:classification_id", invController.getInventoryJSON)
+
 module.exports = router;

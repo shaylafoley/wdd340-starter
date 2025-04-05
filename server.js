@@ -17,7 +17,6 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const accountRoute = require("./routes/accountRoute")
-//const registrationRoute = require("./routes/registrationRoute")
 const bodyParser = require("body-parser")
 const flash = require("connect-flash")
 const cookieParser = require("cookie-parser")
@@ -40,7 +39,7 @@ app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true })); // Parses form data
 app.use(express.json()); // Parses JSON data
-
+app.use(utilities.checkJWTToken)
 
 // Express Messages Middleware
 app.use(require('connect-flash')())

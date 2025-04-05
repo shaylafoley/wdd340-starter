@@ -1,5 +1,5 @@
-//const jwt = require("jsonwebtoken")
-//require("dotenv").config()
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const utilities = require("../utilities")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
