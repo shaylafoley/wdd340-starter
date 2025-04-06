@@ -24,5 +24,7 @@ router.get("/classifications", async (req, res) => {
   router.post("/add-inventory", invController.addInventory);
   router.get("/getInventory/:classification_id", invController.getInventoryJSON)
 router.get("/edit/:inv_id", invController.editInventoryView)
+// Route to process the inventory update
+router.post("/edit-inventory", invController.updateInventory)
 
 module.exports = router;
