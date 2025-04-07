@@ -1,12 +1,15 @@
 <main>
-    <h1>Account Management</h1>
-      <% if (typeof message !== "undefined") { %>
-        <p class="flash-message"><%= message %></p>
-      <% } %>
-    
-    
-        <p>You're logged in</p>
-    
-    
-  </main>
+  <h1>Account Management</h1>
+
+  <% if (message) { %>
+    <p class="flash-message"><%= message %></p>
+  <% } %>
+
+  <% if (loggedin) { %>
+    <p>You're logged in as <%= client.account_firstname %> <%= client.account_lastname %> (<%= client.account_email %>)</p>
+  <% } else { %>
+    <p>You're not logged in.</p>
+  <% } %>
+</main>
+
     

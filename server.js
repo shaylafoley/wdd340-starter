@@ -34,33 +34,43 @@ app.use(session({
   name: 'sessionId',
 }))
 
+//cookie parser
+app.use(cookieParser())
+
+//body parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
-app.use(cookieParser())
+
 app.use(express.urlencoded({ extended: true })); // Parses form data
 app.use(express.json()); // Parses JSON data
+
+//JWt token check
 app.use(utilities.checkJWTToken)
 
-// Express Messages Middleware
+// Flash message middleware
 app.use(require('connect-flash')())
+
+//Express messages
 app.use(function(req, res, next){
   res.locals.messages = require('express-messages')(req, res)
   next()
 })
 
-
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true
-}));
-
 app.use(flash());
+
+//Middleware to add client and loggedin to res.locals
 app.use((req, res, next) => {
   res.locals.message = req.flash("info");
   res.locals.errors = req.flash("errors");
   next();
 });
+
+app.use((req, res, next) => {
+  res.locals.client = req.session.client || null
+  res.locals.loggedin = req.session.client ? true : false
+  next()
+})
+
 
 /* ***********************
  * View Engines and Templates
@@ -69,6 +79,7 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 /* ***********************
  * Routes
@@ -81,10 +92,7 @@ app.use("/inv", inventoryRoute)
 app.use("/", inventoryRoute)
 // Account routes
 app.use("/account", accountRoute)
-//app.use("/account", registrationRoute)
-/*app.get("/", function(req, res){
-  res.render("index", {title: "Home"})
-})*/
+
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
