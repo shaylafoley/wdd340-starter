@@ -7,3 +7,40 @@
 
 <%- vehicleDetail %>
 
+<section class="reviews">
+  <h2>Reviews</h2>
+  <% if (reviews.length > 0) { %>
+    <ul>
+      <% reviews.forEach(review => { %>
+        <li>
+          <strong><%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.</strong>
+          rated <%= review.review_rating %>/5
+          <p><%= review.review_text %></p>
+          <small><%= new Date(review.review_date).toLocaleString() %></small>
+        </li>
+      <% }) %>
+    </ul>
+  <% } else { %>
+    <p>No reviews yet.</p>
+  <% } %>
+</section>
+
+<% if (loggedin) { %>
+  <form method="post" action="/reviews/add">
+    <label for="review_text">Your Review:</label>
+    <textarea name="review_text" required></textarea>
+
+    <label for="review_rating">Rating:</label>
+    <select name="review_rating" required>
+      <option value="">--Select--</option>
+      <% for (let i = 1; i <= 5; i++) { %>
+        <option value="<%= i %>"><%= i %></option>
+      <% } %>
+    </select>
+
+    <input type="hidden" name="inv_id" value="<%= vehicle.inv_id %>">
+    <button type="submit">Submit Review</button>
+  </form>
+<% } else { %>
+  <p><a href="/account/login">Log in</a> to leave a review.</p>
+<% } %>

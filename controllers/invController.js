@@ -2,6 +2,7 @@ const { header } = require("express-validator")
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
 const bcrypt = require("bcryptjs")
+const reviewModel = require("../models/reviewModel")
 
 const invCont = {}
 
@@ -37,10 +38,13 @@ invCont.getVehicleDetail = async function (req, res, next) {
     const vehicle = data.rows[0]
     const vehicleDetail = utilities.buildVehicleDetail(vehicle);
     const nav = await utilities.getNav() 
+    const reviews = await reviewModel.getReviewsByInvId(invId)
 
     res.render("./inventory/vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, 
       nav, 
       vehicleDetail,
+      reviews,
+      client: req.session.client,
       errors: null, })
   } catch (error) {
     console.error("Error fetching vehicle details:", error)
