@@ -126,7 +126,8 @@ Util.checkJWTToken = (req, res, next) => {
  *  Check Login
  * ************************************ */
 Util.checkLogin = (req, res, next) => {
-  if (req.session.client) {
+  if (req.
+    session.client) {
     return  next();
   } else {
     req.flash("notice", "Please log in.")
