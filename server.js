@@ -63,9 +63,14 @@ app.use(function(req, res, next){
 //app.use(flash());
 
 //Middleware to add client and loggedin to res.locals
+// app.use((req, res, next) => {
+//   res.locals.message = req.flash("info");
+//   res.locals.errors = req.flash("errors");
+//   next();
+// });
 app.use((req, res, next) => {
-  res.locals.message = req.flash("info");
-  res.locals.errors = req.flash("errors");
+  res.locals.loggedin = req.session.loggedin || false;
+  res.locals.username = req.session.username || "";
   next();
 });
 

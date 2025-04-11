@@ -21,5 +21,6 @@ router.post(
     //regValidate.checkLoginData,
     utilities.handleErrors(accountController.accountLogin)
   )
+  router.get("/logout", accountController.logoutAccount)
 
 module.exports = router

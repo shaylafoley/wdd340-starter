@@ -126,9 +126,21 @@ async function renderAccountView(req, res) {
     title: "Account Manager",
     nav,
     message: req.flash("notice"),
-    loggedin: req.session.loggedin,
-    username: req.session.username
+    loggedin: req.session.loggedin || false,
+    username: req.session.username || ""
   });
 };
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, renderAccountView }
+//logout
+async function logoutAccount(req, res) {
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Logout error:", err);
+      return res.redirect("/account/");
+    }
+    res.clearCookie("jwt");
+    res.redirect("/"); // Redirect to home page or login page
+  });
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, renderAccountView, logoutAccount }
