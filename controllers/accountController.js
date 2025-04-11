@@ -90,10 +90,10 @@ async function accountLogin(req, res) {
     })
   }
   try {
-    if (await bcrypt.compare(account_password, accountData.account_password)) {
+    const match = await bcrypt.compare(account_password, accountData.account_password);
+    if (match) {
       delete accountData.account_password;
 
-      req.session.client = accountData;
 
       const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
       if(process.env.NODE_ENV === 'development') {
@@ -102,14 +102,8 @@ async function accountLogin(req, res) {
       } else {
         res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
       }
-      req.session.client = {
-        account_id: accountData.account_id,
-        account_firstname: accountData.account_firstname,
-        account_lastname: accountData.account_lastname,
-        account_email: accountData.account_email,
-        account_type: accountData.account_type
-      }
-      
+      req.session.loggedin = true;
+      req.session.username = accountData.account_firstname;
       return res.redirect("/account/")
     }
     else {
@@ -132,6 +126,8 @@ async function renderAccountView(req, res) {
     title: "Account Manager",
     nav,
     message: req.flash("notice"),
+    loggedin: req.session.loggedin,
+    username: req.session.username
   });
 };
 

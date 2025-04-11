@@ -5,8 +5,8 @@
     <p class="flash-message"><%= message %></p>
   <% } %>
 
-  <% if (loggedin) { %>
-    <p>You're logged in as <%#= client.account_firstname %> <%#= client.account_lastname %> (<%#= client.account_email %>)</p>
+  <% if (locals.loggedin) { %>
+    <p>You're logged in as <%= username %>!</p>
   <% } else { %>
     <p>You're not logged in.</p>
   <% } %>

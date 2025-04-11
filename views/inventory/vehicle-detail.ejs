@@ -25,7 +25,7 @@
   <% } %>
 </section>
 
-<% if (loggedin) { %>
+<% if (locals.loggedin) { %>
   <form method="post" action="/reviews/add">
     <label for="review_text">Your Review:</label>
     <textarea name="review_text" required></textarea>

@@ -42,8 +42,8 @@ app.use(session({
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
-// app.use(express.urlencoded({ extended: true })); // Parses form data
-// app.use(express.json()); // Parses JSON data
+app.use(express.urlencoded({ extended: true })); // Parses form data
+
 
 //cookie parser
 app.use(cookieParser())
@@ -63,17 +63,11 @@ app.use(function(req, res, next){
 //app.use(flash());
 
 //Middleware to add client and loggedin to res.locals
-// app.use((req, res, next) => {
-//   res.locals.message = req.flash("info");
-//   res.locals.errors = req.flash("errors");
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   res.locals.client = req.session.client || null
-//   res.locals.loggedin = req.session.client ? true : false
-//   next()
-// })
+app.use((req, res, next) => {
+  res.locals.message = req.flash("info");
+  res.locals.errors = req.flash("errors");
+  next();
+});
 
 
 /* ***********************
@@ -151,7 +145,7 @@ app.use(async (err, req, res, next) => {
     nav,
     grid,
     errors: null,
-  });
+  })
 });
  
 const port = process.env.PORT
