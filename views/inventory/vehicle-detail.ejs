@@ -13,7 +13,7 @@
     <ul>
       <% reviews.forEach(review => { %>
         <li>
-          <strong><%= review.account_firstname %> <%= review.account_lastname.charAt(0) %>.</strong>
+          <strong><%= review.account_firstname %>.</strong>
           rated <%= review.review_rating %>/5
           <p><%= review.review_text %></p>
           <small><%= new Date(review.review_date).toLocaleString() %></small>

@@ -44,7 +44,8 @@ invCont.getVehicleDetail = async function (req, res, next) {
       nav, 
       vehicleDetail,
       reviews,
-      client: req.session.client,
+      loggedin: req.session.loggedin,
+      username: req.session.username,
       errors: null, })
   } catch (error) {
     console.error("Error fetching vehicle details:", error)
@@ -178,6 +179,7 @@ invCont.editInventoryView = async function (req, res, next) {
     inv_color: itemData.inv_color,
     classification_id: itemData.classification_id
   })
+  
 }
 
 /* ***************************
@@ -198,6 +200,7 @@ invCont.updateInventory = async function (req, res, next) {
     inv_color,
     classification_id,
   } = req.body
+
   const updateResult = await invModel.updateInventory(
     inv_id,  
     inv_make,
