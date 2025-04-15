@@ -1,8 +1,10 @@
 <% if (title) { %>
     <h1><%= title %></h1>
-    <% if (typeof message !== "undefined") { %>
-      <p class="flash-message"><%= message %></p>
+
+    <% if (messages && messages.notice) { %>
+      <p class="flash-message"><%= messages.notice %></p>
     <% } %>
+    
     <% } else {
       res.redirect('/')
     } %>

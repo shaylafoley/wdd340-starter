@@ -12,16 +12,40 @@ const invCont = {}
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
+
+  // ✅ If no vehicles found, redirect with message
+  if (!data || data.length === 0) {
+    req.flash("notice", "Sorry, we appear to have lost that page.")
+    return res.redirect("/inv")
+  }
+
   const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
   const className = data[0].classification_name
+
   res.render("./inventory/classification", {
     title: className + " vehicles",
     nav,
     grid,
     errors: null,
+    messages: req.flash() // 👈 Include flash messages here
   })
 }
+
+
+// invCont.buildByClassificationId = async function (req, res, next) {
+//   const classification_id = req.params.classificationId
+//   const data = await invModel.getInventoryByClassificationId(classification_id)
+//   const grid = await utilities.buildClassificationGrid(data)
+//   let nav = await utilities.getNav()
+//   const className = data[0].classification_name
+//   res.render("./inventory/classification", {
+//     title: className + " vehicles",
+//     nav,
+//     grid,
+//     errors: null,
+//   })
+// }
 
 invCont.getVehicleDetail = async function (req, res, next) {
   const invId = req.params.invId // Get ID from URL
@@ -47,7 +71,8 @@ invCont.getVehicleDetail = async function (req, res, next) {
       reviews,
       loggedin: req.session.loggedin,
       username: req.session.username,
-      errors: null, })
+      errors: null,
+      messages: req.flash() })
   } catch (error) {
     console.error("Error fetching vehicle details:", error)
     res.status(500).render("error", { title: "Error", message: "Internal Server Error", nav })
