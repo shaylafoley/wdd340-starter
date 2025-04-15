@@ -6,7 +6,8 @@
  * Require Statements
  *************************/
 const session = require("express-session")
-const pool = require('./database/')
+const db = require('./database')
+const pool = db.pool
 const express = require("express")
 const expressLayouts = require("express-ejs-layouts")
 const env = require("dotenv").config()
