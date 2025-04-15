@@ -42,6 +42,7 @@ invCont.getVehicleDetail = async function (req, res, next) {
 
     res.render("./inventory/vehicle-detail", { title: `${vehicle.inv_make} ${vehicle.inv_model}`, 
       nav, 
+      vehicle,
       vehicleDetail,
       reviews,
       loggedin: req.session.loggedin,

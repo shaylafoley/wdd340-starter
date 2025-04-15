@@ -104,6 +104,7 @@ async function accountLogin(req, res) {
       }
       req.session.loggedin = true;
       req.session.username = accountData.account_firstname;
+      req.session.client = accountData
       return res.redirect("/account/")
     }
     else {
